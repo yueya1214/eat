@@ -232,6 +232,90 @@
             color: #333;
             font-weight: bold;
        }
+
+        /* For filter tags */
+        .filter-tags {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .filter-tag {
+            background-color: #ffdab9; /* 浅桃色 */
+            color: #a52a2a; /* Brown */
+            border: 1px solid #ffb347; /* 橙色 */
+            padding: 8px 15px;
+            font-size: 0.9em;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+        .filter-tag:hover {
+            background-color: #ffb347;
+            color: white;
+        }
+        .filter-tag.active { /* Style for an active filter */
+            background-color: #ff8c00; /* 暗橙色 */
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Button wiggle animation */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg) scale(1.05); } /* Keep hover scale if applicable */
+            25% { transform: rotate(-3deg) scale(1.05); }
+            75% { transform: rotate(3deg) scale(1.05); }
+        }
+        .decision-button.wiggle-effect { /* Apply to the decision button when wiggling */
+            animation: wiggle 0.3s ease-in-out;
+        }
+
+
+        /* Placeholder for weekly diet plan */
+        .weekly-plan-placeholder {
+            display: flex;
+            flex-wrap: wrap; /* Allow days to wrap on smaller screens */
+            justify-content: space-around;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fffaf0; /* Lighter than #fff9f0 for contrast */
+            border: 1px dashed #ffdab9;
+            border-radius: 8px;
+        }
+        .plan-day {
+            background-color: #fff;
+            border: 1px solid #ffe4b5; /* 莫卡辛橙 */
+            border-radius: 5px;
+            padding: 15px; /* Increased padding */
+            margin: 8px; /* Increased margin */
+            width: calc(100% / 4 - 20px); /* Adjust for 4 items per row, or responsive */
+            min-width: 120px; /* Minimum width for readability */
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .plan-day h4 {
+            margin-top: 0;
+            margin-bottom: 10px; /* Increased margin */
+            color: #ff6f61; /* 珊瑚红 */
+            font-size: 1.1em; /* Slightly larger */
+        }
+        .plan-day p {
+            font-size: 0.9em; /* Slightly larger */
+            color: #555;
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+        /* Responsive for plan days: 2 per row on smaller screens */
+        @media (max-width: 768px) {
+            .plan-day {
+                width: calc(100% / 2 - 20px);
+            }
+        }
+        @media (max-width: 480px) {
+            .plan-day {
+                width: calc(100% - 20px); /* Full width on very small screens */
+            }
+        }
     </style>
 </head>
 <body>
@@ -269,9 +353,17 @@
                 <li>标签筛选：快速找到素食、低卡路里、高蛋白等特定餐食。</li>
                 <li>历史记录：回顾您过去的就餐选择，方便再次享用。</li>
             </ul>
+            <div class="filter-tags">
+                <strong>筛选偏好：</strong>
+                <button class="filter-tag" data-filter="vegetarian">素食主义</button>
+                <button class="filter-tag" data-filter="low-calorie">低卡路里</button>
+                <button class="filter-tag" data-filter="spicy">爱吃辣</button>
+                <button class="filter-tag" data-filter="quick">15分钟速成</button>
+                <button class="filter-tag" data-filter="comfort">治愈系美食</button>
+            </div>
             <div class="fridge-ingredients">
                 <h3><span aria-hidden="true">🧊</span> 冰箱余料模式</h3>
-                <label for="ingredients">输入您现有的食材（用逗号分隔）：</label>
+                <label for="ingredients">输入您现有的食材（用逗号或空格分隔）：</label>
                 <textarea id="ingredients" name="ingredients" placeholder="例如：鸡蛋, 番茄, 青椒"></textarea>
                 <button id="findRecipesButton">查找食谱</button>
                 <div id="recipe-suggestion">（这里将显示根据食材推荐的食谱）</div>
@@ -308,6 +400,15 @@
                 <li>自动购物清单：根据您的饮食计划，一键生成购物清单，省时省力。 (概念)</li>
                 <li>营养分析模块：展示每餐的热量、蛋白质、碳水、脂肪等营养数据，助您均衡膳食。(概念)</li>
             </ul>
+            <div class="weekly-plan-placeholder">
+                <div class="plan-day"><h4>周一</h4><p>早餐: 燕麦片+水果<br>午餐: 鸡胸肉藜麦沙拉<br>晚餐: 清蒸鲈鱼+时蔬</p></div>
+                <div class="plan-day"><h4>周二</h4><p>早餐: 全麦三明治<br>午餐: 杂蔬炒意面<br>晚餐: 豆腐金针菇汤</p></div>
+                <div class="plan-day"><h4>周三</h4><p>早餐: 紫薯+豆浆<br>午餐: 照烧鸡腿饭<br>晚餐: 冬瓜丸子汤</p></div>
+                <div class="plan-day"><h4>周四</h4><p>早餐: 水煮蛋+玉米<br>午餐: 墨西哥鸡肉卷<br>晚餐: 番茄牛腩</p></div>
+                <div class="plan-day"><h4>周五</h4><p>早餐: 水果酸奶杯<br>午餐: 海鲜焗饭<br>晚餐: 外卖/朋友小聚</p></div>
+                <div class="plan-day"><h4>周六</h4><p>早午餐: 班尼迪克蛋<br>下午茶: 小蛋糕<br>晚餐: 自制火锅</p></div>
+                <div class="plan-day"><h4>周日</h4><p>早餐: 中式点心<br>午餐: 家庭版烤肉<br>晚餐: 蔬菜粥</p></div>
+            </div>
              <p style="font-style: italic; color: #777;">提示：购物清单和详细营养分析等高级功能，通常需要更复杂的应用架构支持。</p>
         </div>
 
@@ -330,6 +431,14 @@
 
             decisionButton.addEventListener('click', function() {
                 recommendationResult.textContent = '思考中... 🤔';
+                // Add wiggle effect
+                if (!decisionButton.classList.contains('wiggle-effect')) {
+                    decisionButton.classList.add('wiggle-effect');
+                    setTimeout(() => {
+                        decisionButton.classList.remove('wiggle-effect'); // Remove after animation
+                    }, 300); // Match animation duration (must be same as CSS)
+                }
+
                 setTimeout(() => {
                     const randomIndex = Math.floor(Math.random() * foodOptions.length);
                     recommendationResult.textContent = `要不...今天就吃 ${foodOptions[randomIndex]}！`;
@@ -341,22 +450,49 @@
             const ingredientsInput = document.getElementById('ingredients');
             const recipeSuggestion = document.getElementById('recipe-suggestion');
 
+            const mockRecipes = {
+                "鸡蛋番茄": "<p>推荐食谱：<strong>番茄炒蛋</strong></p><p>做法：鸡蛋打散，番茄切块。先炒鸡蛋，盛出。再炒番茄，加鸡蛋，调味即可。</p>",
+                "鸡肉": "<p>推荐食谱：<strong>宫保鸡丁</strong> 或 <strong>香煎鸡胸肉</strong></p><p>做法：鸡肉切丁腌制，搭配花生、辣椒等炒制宫保鸡丁。或将鸡胸肉腌制后香煎。</p>",
+                "豆腐青菜": "<p>推荐食谱：<strong>青菜豆腐汤</strong></p><p>做法：豆腐切块，青菜洗净。水中加姜片煮沸，放入豆腐，再加入青菜，调味即可。</p>",
+                "牛肉洋葱": "<p>推荐食谱：<strong>洋葱炒牛肉</strong></p><p>做法：牛肉切片腌制，洋葱切块。热锅凉油，滑炒牛肉至变色盛出。再炒洋葱，加入牛肉，快速翻炒调味。</p>",
+                "土豆": "<p>推荐食谱：<strong>酸辣土豆丝</strong> 或 <strong>干锅土豆片</strong></p><p>做法：土豆切丝泡水去淀粉，搭配辣椒、醋等炒制。或切片油炸/煎制后与其他辅料制作干锅。</p>",
+                "虾仁西兰花": "<p>推荐食谱：<strong>西兰花炒虾仁</strong></p><p>做法：虾仁处理干净，西兰花焯水。热锅炒香蒜末，加入虾仁炒至变色，再加入西兰花翻炒，调味即可。</p>",
+                "五花肉豆角": "<p>推荐食谱：<strong>五花肉炖豆角</strong></p><p>做法：五花肉煸炒出油，加入葱姜蒜、香料炒香，放入豆角，加水/高汤炖煮入味。</p>"
+            };
+
             findRecipesButton.addEventListener('click', function() {
-                const ingredients = ingredientsInput.value.trim();
-                if (ingredients === "") {
-                    recipeSuggestion.textContent = "请输入您拥有的食材哦！";
+                const ingredientsText = ingredientsInput.value.trim().toLowerCase();
+                if (ingredientsText === "") {
+                    recipeSuggestion.innerHTML = "<p style='color:red; font-weight:bold;'>请输入您拥有的食材哦！让我看看您的冰箱里有啥宝贝？</p>";
                     return;
                 }
-                // 这是一个非常简化的模拟
-                recipeSuggestion.textContent = `正在为您查找包含"${ingredients}"的食谱...`;
-                 setTimeout(() => {
-                    // 模拟一些简单的食谱逻辑
-                    if (ingredients.includes("鸡蛋") && ingredients.includes("番茄")) {
-                         recipeSuggestion.innerHTML = "<p>推荐食谱：<strong>番茄炒蛋</strong></p><p>做法：巴拉巴拉...</p>";
-                    } else if (ingredients.includes("鸡肉")) {
-                         recipeSuggestion.innerHTML = "<p>推荐食谱：<strong>宫保鸡丁</strong> 或 <strong>香煎鸡胸肉</strong></p><p>做法：巴拉巴拉...</p>";
+                // Split by comma or space, and filter out empty strings
+                const currentIngredients = ingredientsText.split(/[,\\s]+/).filter(ing => ing.length > 0);
+                
+                recipeSuggestion.innerHTML = `<p>正在根据"<strong>${currentIngredients.join(', ')}</strong>"为您寻找灵感...</p>`;
+                
+                setTimeout(() => {
+                    let foundRecipeHTML = "";
+                    if (currentIngredients.includes("鸡蛋") && (currentIngredients.includes("番茄") || currentIngredients.includes("西红柿"))) {
+                        foundRecipeHTML = mockRecipes["鸡蛋番茄"];
+                    } else if (currentIngredients.includes("鸡肉")) { // Simplified, can be more specific
+                        foundRecipeHTML = mockRecipes["鸡肉"];
+                    } else if (currentIngredients.includes("豆腐") && (currentIngredients.includes("青菜") || currentIngredients.includes("白菜") || currentIngredients.includes("小青菜"))) {
+                        foundRecipeHTML = mockRecipes["豆腐青菜"];
+                    } else if (currentIngredients.includes("牛肉") && currentIngredients.includes("洋葱")) {
+                        foundRecipeHTML = mockRecipes["牛肉洋葱"];
+                    } else if (currentIngredients.includes("土豆")) {
+                        foundRecipeHTML = mockRecipes["土豆"];
+                    } else if ((currentIngredients.includes("虾") || currentIngredients.includes("虾仁")) && (currentIngredients.includes("西兰花") || currentIngredients.includes("西蓝花"))) {
+                        foundRecipeHTML = mockRecipes["虾仁西兰花"];
+                    } else if ((currentIngredients.includes("五花肉") || currentIngredients.includes("猪肉")) && (currentIngredients.includes("豆角") || currentIngredients.includes("四季豆"))) {
+                        foundRecipeHTML = mockRecipes["五花肉豆角"];
+                    }
+
+                    if (foundRecipeHTML) {
+                        recipeSuggestion.innerHTML = foundRecipeHTML;
                     } else {
-                         recipeSuggestion.textContent = `抱歉，暂时没有找到"${ingredients}"的完美搭配，试试别的？`;
+                        recipeSuggestion.innerHTML = `<p>哎呀，对于"<strong>${currentIngredients.join(', ')}</strong>"这个组合，我暂时还没想到特别棒的点子... 要不换换食材或者试试"一键决策"？</p>`;
                     }
                 }, 1500);
             });
@@ -443,6 +579,19 @@
                 // 初始启动轮播
                 resetInterval();
             }
+
+            // --- Filter Tag Interaction (Placeholder) ---
+            const filterTags = document.querySelectorAll('.filter-tag');
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    // In a real app, this would trigger a filter function
+                    // For now, just log to console
+                    console.log(`Filter '${this.dataset.filter}' is now ${this.classList.contains('active') ? 'active' : 'inactive'}.`);
+                    // Example: if you had a recommendation function, you might call it here
+                    // updateRecommendationsBasedOnFilters(); 
+                });
+            });
 
         });
     </script>
