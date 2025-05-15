@@ -1,0 +1,64 @@
+#recommendation-result {
+    margin-top: 25px; /* Reduced top margin to bring closer to button */
+    font-size: 1.6em; /* Slightly larger font */
+    color: #c75000; /* Darker orange for better contrast on its background */
+    min-height: 60px; /* Increased min-height */
+    padding: 15px 25px; /* Increased padding */
+    background-color: #fff0db; /* Lighter, more subtle orange background */
+    border-radius: 8px;
+    display: inline-block; /* Keeps it from taking full width */
+    border: 1px solid #ffdab9; /* Softer border */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Softer shadow */
+    line-height: 1.4; /* Ensure text is well-spaced */
+    max-width: 80%; /* Prevent it from becoming too wide */
+    transition: all 0.3s ease-in-out; /* Smooth transitions for content changes */
+}
+.section {
+    background-color: white;
+}
+
+/* Styles for the container of filtered recommendations */
+#filtered-recommendations-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff9f0; /* Consistent with other light sections */
+    border-radius: 8px;
+    border: 1px dashed #ffcc80; /* A slightly different border to distinguish */
+    min-height: 50px; /* Ensure it has some height even when empty */
+    text-align: left; /* Align text to the left for list items */
+}
+#filtered-recommendations-container h4 {
+    margin-top: 0;
+    color: #ff8c00; /* Dark orange title */
+    margin-bottom: 10px;
+}
+#filtered-recommendations-container ul {
+    list-style-type: none; /* Remove default list bullets */
+    padding-left: 0;
+}
+#filtered-recommendations-container li {
+    padding: 8px 12px;
+    background-color: #ffffff;
+    border: 1px solid #ffebcc;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    transition: background-color 0.2s ease;
+    font-size: 1em;
+}
+#filtered-recommendations-container li:hover {
+    background-color: #fff0db;
+}
+#filtered-recommendations-container .no-results {
+    color: #777;
+    font-style: italic;
+}
+
+/* Button wiggle animation */
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg) scale(1.05); } /* Keep hover scale if applicable */
+    25% { transform: rotate(-3deg) scale(1.05); }
+    75% { transform: rotate(3deg) scale(1.05); }
+}
+.decision-button.wiggle-effect { /* Apply to the decision button when wiggling */
+    animation: wiggle 0.3s ease-in-out;
+} 
