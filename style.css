@@ -2,233 +2,246 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #fff5e6; /* 淡橙色背景 */
+    background-color: #f7f5f0; /* 更柔和的背景色 */
     color: #333;
     text-align: center;
+    background-image: linear-gradient(to bottom, #fcfaf5, #f7f5f0, #fcfaf5);
+    background-attachment: fixed;
 }
 
 header {
-    background-color: #ff6f61; /* 珊瑚红 */
+    background: linear-gradient(135deg, #ff6f61, #ff9671);
     color: white;
     padding: 1.5em 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.15);
+    position: relative;
+    z-index: 10;
 }
 
 header h1 {
     margin: 0;
-    font-size: 2.5em;
+    font-size: 2.8em;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 .container {
-    padding: 20px;
-    max-width: 1000px;
-    margin: 20px auto;
-    background-color: rgba(255, 255, 255, 0.5); /* Adding a subtle white background for content area */
-    border-radius: 10px; /* Rounded corners for the main content container */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Slightly more pronounced shadow for container */
+    padding: 25px;
+    max-width: 1200px;
+    margin: 30px auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
 }
 
+/* 两栏布局 */
+.main-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.sidebar {
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px;
+}
+
+.main-content {
+    flex: 3;
+    min-width: 300px;
+}
+
+/* 决策按钮区域 - 改为上下布局 */
 .main-decision {
-    margin: 40px 0;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    margin-bottom: 30px;
+    padding: 25px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(255, 140, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 140, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.main-decision h2 {
+    color: #ff6f61;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    position: relative;
+    display: inline-block;
+}
+
+.main-decision h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #ff6f61, transparent);
 }
 
 .decision-button {
-    background-color: #ff8c00; /* 暗橙色 */
+    background: linear-gradient(135deg, #ff8c00, #ff7043);
     color: white;
     border: none;
-    padding: 20px 40px;
-    font-size: 1.8em;
-    border-radius: 10px;
+    padding: 18px 40px;
+    font-size: 1.6em;
+    border-radius: 50px;
     cursor: pointer;
-    transition: transform 0.2s ease-out, background-color 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 25px;
+    width: 90%;
+}
+
+.decision-button::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+    transform: rotate(45deg);
+    transition: all 0.3s ease;
 }
 
 .decision-button:hover {
-    background-color: #ffA500; /* 亮橙色 */
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 7px 20px rgba(255, 140, 0, 0.4);
+}
+
+.decision-button:hover::after {
+    transform: rotate(45deg) translate(10%, 10%);
 }
 
 .decision-button:active {
-    transform: scale(0.98);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 8px rgba(255, 140, 0, 0.3);
 }
 
 #recommendation-result {
-    margin-top: 25px; /* Reduced top margin to bring closer to button */
-    font-size: 1.6em; /* Slightly larger font */
-    color: #c75000; /* Darker orange for better contrast on its background */
-    min-height: 60px; /* Increased min-height */
-    padding: 15px 25px; /* Increased padding */
-    background-color: #fff0db; /* Lighter, more subtle orange background */
-    border-radius: 8px;
-    display: inline-block; /* Keeps it from taking full width */
-    border: 1px solid #ffdab9; /* Softer border */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Softer shadow */
-    line-height: 1.4; /* Ensure text is well-spaced */
-    max-width: 80%; /* Prevent it from becoming too wide */
-    transition: all 0.3s ease-in-out; /* Smooth transitions for content changes */
-}
-
-.section {
-    background-color: white;
-    margin: 30px 0;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    text-align: left;
-}
-
-.section h2 {
-    color: #ff6f61;
-    border-bottom: 2px solid #ffdab9; /* 浅桃色 */
-    padding-bottom: 10px;
-    margin-top: 0;
-    font-size: 1.8em; /* Slightly larger section titles */
-}
-
-.feature-list {
-    padding-left: 20px; /* Add some padding for list items */
-}
-
-.feature-list li {
-    margin-bottom: 10px;
-    line-height: 1.6;
-}
-
-/* Food Carousel Styles */
-.food-carousel {
-    margin: 30px 0;
-    padding: 20px; /* Increased padding */
-    background-color: #fff9f0;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.carousel-container {
-    position: relative;
-    max-width: 600px; 
-    margin: auto;
-    overflow: hidden; 
-    border-radius: 8px;
-    border: 1px solid #ffdab9; /* Add a light border to carousel */
-}
-
-.carousel-slide {
-    display: flex; 
-    transition: transform 0.5s ease-in-out;
-}
-
-.carousel-item {
-    min-width: 100%; 
-    box-sizing: border-box;
-}
-
-.carousel-item img {
-    width: 100%; /* Make image fill the item */
-    height: auto; /* Maintain aspect ratio */
-    display: block; 
-}
-
-.carousel-dots {
-    text-align: center;
-    padding: 10px;
-}
-
-.dot {
-    cursor: pointer;
-    height: 12px; /* Slightly smaller dots */
-    width: 12px;
-    margin: 0 5px;
-    background-color: #ffdab9; 
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.dot:hover {
-    transform: scale(1.2);
-}
-
-.dot.active {
-    background-color: #ff8c00; 
-    transform: scale(1.1);
-}
-
-/* Fridge Ingredients Section */
-.fridge-ingredients {
-    margin-top: 20px; /* Add some space above */
-}
-
-.fridge-ingredients label {
+    font-size: 1.4em;
+    color: #d35400;
+    min-height: 60px;
+    padding: 20px;
+    background-color: rgba(255, 248, 235, 0.9);
+    border-radius: 15px;
     display: block;
-    margin: 10px 0 5px;
-    font-weight: bold;
-    color: #555;
+    border: 1px solid rgba(255, 218, 185, 0.7);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    line-height: 1.4;
+    width: 85%;
+    transition: all 0.4s ease;
+    position: relative;
 }
 
-.fridge-ingredients textarea {
-    width: calc(100% - 22px);
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    min-height: 70px; /* Slightly taller */
-    margin-bottom: 10px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+#recommendation-result::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 10px 10px 10px;
+    border-style: solid;
+    border-color: transparent transparent rgba(255, 248, 235, 0.9) transparent;
 }
 
-.fridge-ingredients button {
-    background-color: #5cb85c; 
-    color: white;
-    padding: 12px 18px; /* Slightly larger button */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    font-size: 1em;
-}
-
-.fridge-ingredients button:hover {
-    background-color: #4cae4c;
-    transform: translateY(-1px);
-}
-
-#recipe-suggestion {
-    margin-top: 15px;
-    padding: 15px; /* Increased padding */
-    background-color: #e9f5e9;
-    border-left: 5px solid #5cb85c; /* Thicker border */
-    border-radius: 0 5px 5px 0; /* Rounded corners on one side */
-    line-height: 1.5;
-}
-
-#recipe-suggestion p strong {
-    color: #3c763d; /* Darker green for strong text */
-}
-
-/* Food Roulette Section */
+/* 美食轮盘 - 调整为侧边栏样式 */
 .food-roulette {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 15px 0; /* Add some padding */
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(217, 83, 79, 0.1);
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(217, 83, 79, 0.1);
+}
+
+.food-roulette h2 {
+    color: #d9534f;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.6em;
+    position: relative;
+    display: inline-block;
+}
+
+.food-roulette h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #d9534f, transparent);
+}
+
+.food-roulette p {
+    color: #666;
+    margin-bottom: 20px;
+    max-width: 90%;
+}
+
+.roulette-wheel-container {
+    position: relative;
+    padding: 10px;
+    background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,245,230,0.5) 100%);
+    border-radius: 50%;
+    box-shadow: 0 5px 25px rgba(217, 83, 79, 0.2);
+    margin-bottom: 25px;
+    transition: transform 0.3s ease;
 }
 
 .roulette-wheel {
-    width: 220px; /* Slightly larger wheel */
+    width: 220px;
     height: 220px;
-    border: 5px solid #ff6f61;
+    border: 5px solid #d9534f;
     border-radius: 50%;
     position: relative;
-    margin: 20px 0;
-    overflow: hidden; 
-    background-color: #fff; 
-    box-shadow: 0 0 15px rgba(255, 111, 97, 0.3); /* Add a subtle glow */
+    margin: 0;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 
+        0 0 20px rgba(217, 83, 79, 0.3),
+        inset 0 0 30px rgba(255, 255, 255, 0.5);
+    transition: box-shadow 0.3s ease;
+}
+
+.roulette-wheel:hover {    
+    box-shadow: 
+        0 0 30px rgba(217, 83, 79, 0.4),
+        inset 0 0 40px rgba(255, 255, 255, 0.6);
+}
+
+.roulette-wheel.spinning {    
+    animation: pulse 0.5s infinite alternate;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow:
+            0 0 20px rgba(217, 83, 79, 0.3),
+            inset 0 0 30px rgba(255, 255, 255, 0.5);
+    }
+    100% {
+        box-shadow:
+            0 0 35px rgba(217, 83, 79, 0.5),
+            inset 0 0 50px rgba(255, 255, 255, 0.7);
+    }
 }
 
 .roulette-display {
@@ -245,20 +258,22 @@ header h1 {
         #f08080 75% 87.5%, 
         #a0ced9 87.5% 100% 
     );
-    transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1); 
+    transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.2em;
     font-weight: bold;
-    color: rgba(0,0,0,0.6); 
+    color: rgba(0,0,0,0.6);
 }
 
 .roulette-display span {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 8px 12px;
     border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    z-index: 2;
 }
 
 .roulette-pointer {
@@ -266,118 +281,506 @@ header h1 {
     height: 0;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
-    border-top: 25px solid #d9534f; 
+    border-top: 28px solid #d9534f;
     position: absolute;
-    top: -10px; 
+    top: -15px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
+    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.2));
 }
 
 .roulette-button {
-    background-color: #d9534f; 
+    background: linear-gradient(135deg, #d9534f, #c9302c);
     color: white;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(217, 83, 79, 0.3);
+    margin-top: 5px;
+    width: 80%;
 }
 
 .roulette-button:hover {
-    background-color: #c9302c;
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, #c9302c, #d9534f);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(217, 83, 79, 0.4);
+}
+
+.roulette-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(217, 83, 79, 0.3);
 }
 
 #roulette-result {
-    margin-top: 15px;
-    font-size: 1.3em; /* Slightly larger result text */
-    color: #d9534f; /* Match button color */
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #d9534f;
     font-weight: bold;
-    padding: 10px;
-    background-color: #fff5f5;
-    border-radius: 5px;
+    padding: 12px 20px;
+    background-color: rgba(255, 245, 245, 0.8);
+    border-radius: 15px;
+    min-width: 200px;
+    transition: all 0.4s ease;
+    box-shadow: 0 3px 10px rgba(217, 83, 79, 0.1);
+    border: 1px solid rgba(217, 83, 79, 0.1);
+    text-align: center;
+    width: 85%;
 }
 
-/* Filter Tags */
+/* 美食轮播 */
+.food-carousel {
+    margin-bottom: 30px;
+    padding: 25px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 218, 185, 0.3);
+}
+
+.food-carousel h2 {
+    color: #ff6f61;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    position: relative;
+    display: inline-block;
+}
+
+.food-carousel h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #ff6f61, transparent);
+}
+
+.carousel-container {
+    position: relative;
+    max-width: 90%;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.carousel-slide {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+    border-radius: 12px;
+}
+
+.carousel-item:hover img {
+    transform: scale(1.02);
+}
+
+.carousel-dots {
+    text-align: center;
+    padding: 15px 0 5px;
+}
+
+.dot {
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin: 0 6px;
+    background-color: rgba(255, 218, 185, 0.7);
+    border-radius: 50%;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 140, 0, 0.2);
+}
+
+.dot:hover {
+    background-color: rgba(255, 140, 0, 0.5);
+    transform: scale(1.2);
+}
+
+.dot.active {
+    background-color: #ff8c00;
+    transform: scale(1.1);
+    box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+}
+
+/* 内容区块通用样式 */
+.section {
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 218, 185, 0.3);
+}
+
+.section:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
+}
+
+.section h2 {
+    color: #ff6f61;
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-size: 1.8em;
+    position: relative;
+    display: inline-block;
+}
+
+.section h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #ff6f61, transparent);
+}
+
+.feature-list {
+    padding-left: 25px;
+}
+
+.feature-list li {
+    margin-bottom: 12px;
+    line-height: 1.6;
+    position: relative;
+}
+
+.feature-list li::before {
+    content: "•";
+    color: #ff8c00;
+    font-weight: bold;
+    position: absolute;
+    left: -18px;
+}
+
+/* 冰箱余料模式 */
+.fridge-ingredients {
+    margin-top: 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(92, 184, 92, 0.1);
+    border: 1px solid rgba(92, 184, 92, 0.2);
+    position: relative;
+}
+
+.fridge-ingredients h3 {
+    color: #5a8f5a;
+    margin-top: 0;
+    position: relative;
+    display: inline-block;
+}
+
+.fridge-ingredients h3::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #5cb85c, transparent);
+}
+
+.fridge-ingredients label {
+    display: block;
+    margin: 12px 0 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.fridge-ingredients textarea {
+    width: calc(100% - 24px);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    min-height: 70px;
+    margin-bottom: 15px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    font-family: inherit;
+}
+
+.fridge-ingredients textarea:focus {
+    border-color: #5cb85c;
+    box-shadow: 0 0 10px rgba(92, 184, 92, 0.3);
+    outline: none;
+}
+
+.fridge-ingredients button {
+    background: linear-gradient(135deg, #5cb85c, #449d44);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1em;
+    box-shadow: 0 4px 10px rgba(92, 184, 92, 0.3);
+}
+
+.fridge-ingredients button:hover {
+    background: linear-gradient(135deg, #449d44, #5cb85c);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(92, 184, 92, 0.4);
+}
+
+.fridge-ingredients button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(92, 184, 92, 0.3);
+}
+
+#recipe-suggestion {
+    margin-top: 20px;
+    padding: 20px 25px;
+    background-color: rgba(233, 245, 233, 0.8);
+    border-radius: 12px;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 15px rgba(92, 184, 92, 0.1);
+}
+
+#recipe-suggestion:hover {
+    box-shadow: 0 5px 20px rgba(92, 184, 92, 0.15);
+    transform: translateY(-3px);
+}
+
+#recipe-suggestion p strong {
+    color: #3c763d;
+}
+
+/* 标签筛选 */
 .filter-tags {
-    margin-top: 15px;
-    margin-bottom: 20px; /* Increased bottom margin */
-    padding-bottom: 10px; /* Add some padding below tags */
-    border-bottom: 1px solid #ffe4b5; /* Separator line */
+    margin: 25px 0;
+    padding: 5px 0 20px;
+    border-bottom: 1px solid rgba(255, 228, 181, 0.5);
+    text-align: center;
+}
+
+.filter-tags strong {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    color: #8b4513;
 }
 
 .filter-tag {
-    background-color: #ffebcd; /* Lighter base color */
-    color: #8b4513; /* Darker brown text */
-    border: 1px solid #ffdab9; 
-    padding: 8px 15px;
-    font-size: 0.9em;
-    border-radius: 20px;
+    background-color: rgba(255, 235, 205, 0.7);
+    color: #8b4513;
+    border: 1px solid rgba(255, 218, 185, 0.5);
+    padding: 8px 18px;
+    font-size: 0.95em;
+    border-radius: 30px;
     cursor: pointer;
     margin: 5px;
-    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .filter-tag:hover {
-    background-color: #ffdab9;
+    background-color: rgba(255, 218, 185, 0.9);
     color: #a52a2a;
-    transform: translateY(-2px);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
-.filter-tag.active { 
-    background-color: #ff8c00; 
+.filter-tag.active {
+    background: linear-gradient(135deg, #ff8c00, #ff7043);
     color: white;
     font-weight: bold;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1) inset;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
 }
 
-/* Styles for the container of filtered recommendations */
+/* 推荐结果容器 */
 #filtered-recommendations-container {
-    margin-top: 20px;
-    padding: 20px; /* Increased padding */
-    background-color: #fff9f0; 
-    border-radius: 8px;
-    border: 1px solid #ffcc80; 
-    min-height: 50px; 
-    text-align: left; 
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    margin-top: 25px;
+    padding: 25px;
+    background-color: rgba(255, 249, 240, 0.7);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 204, 128, 0.3);
+    min-height: 50px;
+    text-align: left;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+}
+
+#filtered-recommendations-container:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    background-color: rgba(255, 249, 240, 0.85);
 }
 
 #filtered-recommendations-container h4 {
     margin-top: 0;
-    color: #e67e22; /* Slightly different orange for this title */
-    margin-bottom: 15px; /* Increased margin */
+    color: #e67e22;
+    margin-bottom: 18px;
     font-size: 1.3em;
+    position: relative;
+    display: inline-block;
+}
+
+#filtered-recommendations-container h4::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #e67e22, transparent);
 }
 
 #filtered-recommendations-container ul {
-    list-style-type: none; 
+    list-style-type: none;
     padding-left: 0;
 }
 
 #filtered-recommendations-container li {
-    padding: 10px 15px; /* Increased padding */
-    background-color: #ffffff;
-    border: 1px solid #ffebcc;
-    border-radius: 5px;
-    margin-bottom: 10px; /* Increased margin */
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    padding: 15px 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 235, 204, 0.5);
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
     font-size: 1em;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.03);
+    position: relative;
+    overflow: hidden;
+}
+
+#filtered-recommendations-container li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 5px;
+    background: linear-gradient(to bottom, #ffcc80, #ff8c00);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 #filtered-recommendations-container li:hover {
-    background-color: #fff5e1;
-    transform: translateX(5px);
+    background-color: rgba(255, 245, 225, 0.9);
+    transform: translateX(8px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+}
+
+#filtered-recommendations-container li:hover::before {
+    opacity: 1;
 }
 
 #filtered-recommendations-container .no-results {
     color: #777;
     font-style: italic;
-    padding: 10px 0;
+    padding: 15px 0;
+    text-align: center;
+}
+
+/* 饮食计划周样式 */
+.weekly-plan-placeholder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 25px;
+    padding: 25px;
+    background-color: rgba(255, 250, 240, 0.7);
+    border: 1px dashed rgba(255, 218, 185, 0.5);
+    border-radius: 15px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.weekly-plan-placeholder:hover {
+    background-color: rgba(255, 250, 240, 0.9);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.plan-day {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 228, 181, 0.5);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px;
+    width: calc(100% / 4 - 30px);
+    min-width: 130px;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.plan-day::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, #ff6f61, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.plan-day:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+.plan-day:hover::before {
+    opacity: 1;
+}
+
+.plan-day h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #ff6f61;
+    font-size: 1.2em;
+    position: relative;
+    display: inline-block;
+}
+
+.plan-day h4::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #ff6f61, transparent);
+}
+
+.plan-day p {
+    font-size: 0.95em;
+    color: #555;
+    margin-bottom: 5px;
+    line-height: 1.6;
 }
 
 /* Button wiggle animation */
@@ -387,120 +790,143 @@ header h1 {
     75% { transform: rotate(3deg) scale(1.05); }
 }
 
-.decision-button.wiggle-effect { 
+.decision-button.wiggle-effect {
     animation: wiggle 0.3s ease-in-out;
-}
-
-/* Placeholder for weekly diet plan */
-.weekly-plan-placeholder {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: space-around;
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #fffaf0; 
-    border: 1px dashed #ffdab9;
-    border-radius: 8px;
-}
-
-.plan-day {
-    background-color: #fff;
-    border: 1px solid #ffe4b5; 
-    border-radius: 5px;
-    padding: 15px; 
-    margin: 8px; 
-    width: calc(100% / 4 - 20px); 
-    min-width: 130px; /* Slightly wider for readability */
-    box-sizing: border-box;
-    text-align: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.plan-day:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-}
-
-.plan-day h4 {
-    margin-top: 0;
-    margin-bottom: 10px; 
-    color: #ff6f61; 
-    font-size: 1.1em; 
-}
-
-.plan-day p {
-    font-size: 0.9em; 
-    color: #555;
-    margin-bottom: 5px;
-    line-height: 1.5;
 }
 
 /* Footer Styles */
 footer {
-    background-color: #4a4a4a; /* Darker grey for footer */
-    color: #fff0db; /* Light warm color for text */
-    padding: 1.5em 0; /* Increased padding */
-    margin-top: 40px; /* More space above footer */
+    background: linear-gradient(to right, #333, #4a4a4a, #333);
+    color: #fff0db;
+    padding: 1.8em 0;
+    margin-top: 60px;
     font-size: 0.9em;
+    position: relative;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, transparent, #ff6f61, transparent);
 }
 
 footer p {
     margin: 0;
+    letter-spacing: 0.5px;
 }
 
-/* Responsive for plan days */
-@media (max-width: 992px) { /* Adjust breakpoint for 3 items */
-    .plan-day {
-        width: calc(100% / 3 - 20px);
+/* 响应式设计 */
+@media (max-width: 1100px) {
+    .main-layout {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        max-width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .main-decision, .food-roulette {
+        flex: 1;
+        min-width: 280px;
+    }
+    
+    .roulette-wheel-container {
+        margin: 0 auto 20px;
     }
 }
 
 @media (max-width: 768px) {
+    .container {
+        margin: 20px auto;
+        padding: 15px;
+    }
+    
+    .sidebar {
+        flex-direction: column;
+    }
+    
+    .main-decision, .food-roulette {
+        width: 100%;
+    }
+    
+    .section {
+        padding: 20px;
+    }
+    
     .plan-day {
         width: calc(100% / 2 - 20px);
     }
-    .container {
-        padding: 15px;
-    }
-    .section h2 {
+    
+    .section h2, .food-carousel h2, .main-decision h2, .food-roulette h2 {
         font-size: 1.6em;
     }
+    
     .decision-button {
         font-size: 1.5em;
-        padding: 15px 30px;
+        padding: 15px 35px;
     }
+    
     #recommendation-result {
         font-size: 1.4em;
+    }
+    
+    .roulette-wheel {
+        width: 200px;
+        height: 200px;
     }
 }
 
 @media (max-width: 480px) {
-    .plan-day {
-        width: calc(100% - 20px); 
-    }
     header h1 {
         font-size: 2em;
     }
+    
     .container {
         margin: 10px auto;
-        padding: 10px;
+        padding: 12px;
     }
-    .section h2 {
+    
+    .section, .main-decision, .food-roulette, .food-carousel {
+        padding: 15px;
+    }
+    
+    .plan-day {
+        width: 100%;
+    }
+    
+    .section h2, .food-carousel h2, .main-decision h2, .food-roulette h2 {
         font-size: 1.4em;
     }
+    
     .decision-button {
         font-size: 1.3em;
+        padding: 12px 30px;
     }
+    
     #recommendation-result {
         font-size: 1.2em;
-        padding: 10px 15px;
+        padding: 10px 20px;
     }
+    
     .filter-tag {
-        padding: 6px 10px;
+        padding: 6px 12px;
         font-size: 0.8em;
     }
+    
     #filtered-recommendations-container li {
-        padding: 8px 10px;
+        padding: 12px 15px;
+    }
+    
+    .roulette-wheel {
+        width: 180px;
+        height: 180px;
     }
 } 
