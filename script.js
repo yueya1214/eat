@@ -108,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedCategory = rouletteCategories[categoryIndex % rouletteCategories.length];
             
             rouletteResult.textContent = `轮盘指向：${selectedCategory}！`;
-            // rouletteDisplay.innerHTML = `<span>${selectedCategory}</span>`; // 可以在转盘中心显示结果
         }, 4100); // 略长于CSS动画时间
     });
 
@@ -159,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         resetInterval();
     }
 
-    // --- Filter Tag Interaction (Placeholder) ---
+    // --- Filter Tag Interaction ---
     const filterTags = document.querySelectorAll('.filter-tag');
     const filteredRecommendationsContainer = document.getElementById('filtered-recommendations-container');
 
@@ -213,5 +212,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial call to display a message if no tags are selected
     updateFilteredRecommendations();
-
 }); 
