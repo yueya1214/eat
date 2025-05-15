@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今天吃啥呀？</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff5e6; /* 淡橙色背景 */
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background-color: #ff6f61; /* 珊瑚红 */
+            color: white;
+            padding: 1.5em 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1000px;
+            margin: 20px auto;
+        }
+        .main-decision {
+            margin: 40px 0;
+        }
+        .decision-button {
+            background-color: #ff8c00; /* 暗橙色 */
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.8em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease-out, background-color 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .decision-button:hover {
+            background-color: #ffA500; /* 亮橙色 */
+            transform: scale(1.05);
+        }
+        .decision-button:active {
+            transform: scale(0.98);
+        }
+        #recommendation-result {
+            margin-top: 30px;
+            font-size: 1.5em;
+            color: #d9534f; /* 番茄红 */
+            min-height: 50px;
+            padding:10px;
+            background-color: #ffe4b5; /* 莫卡辛橙 */
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .section {
+            background-color: white;
+            margin: 30px 0;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: left;
+        }
+        .section h2 {
+            color: #ff6f61;
+            border-bottom: 2px solid #ffdab9; /* 浅桃色 */
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .feature-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .food-carousel {
+            margin: 30px 0;
+            padding: 15px;
+            background-color: #fff9f0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .food-carousel img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 8px;
+            border: 3px solid #ffdab9;
+        }
+         /* 简单的轮播图样式 */
+        .carousel-container {
+            position: relative;
+            max-width: 600px; /* 根据需要调整 */
+            margin: auto;
+            overflow: hidden; /* 隐藏超出容器的部分 */
+            border-radius: 8px;
+        }
+        .carousel-slide {
+            display: flex; /* 使用flex布局实现横向排列 */
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-item {
+            min-width: 100%; /* 每个项目占据容器全部宽度 */
+            box-sizing: border-box;
+        }
+        .carousel-item img {
+            width: 100%;
+            display: block; /* 消除图片下方的空白 */
+            border-radius: 0; /* 图片在容器内，不需要单独圆角 */
+            border: none;
+        }
+        .carousel-dots {
+            text-align: center;
+            padding: 10px;
+        }
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #ffdab9; /* 浅桃色 */
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+        .dot.active, .dot:hover {
+            background-color: #ff8c00; /* 暗橙色 */
+        }
+
+        /* 冰箱余料 */
+        .fridge-ingredients label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        .fridge-ingredients textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            min-height: 60px;
+            margin-bottom:10px;
+        }
+        .fridge-ingredients button {
+            background-color: #5cb85c; /* 绿色 */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .fridge-ingredients button:hover {
+            background-color: #4cae4c;
+        }
+        #recipe-suggestion {
+            margin-top:15px;
+            padding:10px;
+            background-color: #e9f5e9;
+            border-left: 4px solid #5cb85c;
+        }
+
+        /* 美食轮盘 */
+        .food-roulette {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .roulette-wheel {
+            width: 200px;
+            height: 200px;
+            border: 5px solid #ff6f61;
+            border-radius: 50%;
+            position: relative;
+            margin: 20px 0;
+            overflow: hidden; /* 隐藏指针溢出部分 */
+            background-color: #fff; /* 添加背景色 */
+        }
+        .roulette-display {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-image: conic-gradient(
+                #ffb347 0% 12.5%, /* 橙色 */
+                #ffcc33 12.5% 25%, /* 黄色 */
+                #90ee90 25% 37.5%, /* 浅绿 */
+                #add8e6 37.5% 50%, /* 浅蓝 */
+                #dda0dd 50% 62.5%, /* 紫色 */
+                #ff69b4 62.5% 75%, /* 粉色 */
+                #f08080 75% 87.5%, /* 亮珊瑚色 */
+                #a0ced9 87.5% 100% /* 浅蓝灰 */
+            );
+            transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1); /* 平滑的旋转动画 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size:1.2em;
+            font-weight:bold;
+            color: rgba(0,0,0,0.6); /* 文字颜色 */
+        }
+        .roulette-pointer {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 25px solid #d9534f; /* 番茄红指针 */
+            position: absolute;
+            top: -10px; /* 指向轮盘顶部边缘 */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        .roulette-button {
+            background-color: #d9534f; /* 番茄红 */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.2s ease;
+        }
+       .roulette-button:hover {
+            background-color: #c9302c;
+        }
+       #roulette-result {
+            margin-top:15px;
+            font-size: 1.2em;
+            color: #333;
+            font-weight: bold;
+       }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>今天吃啥呀？</h1>
+    </header>
+
+    <div class="container">
+        <div class="food-carousel">
+            <h2>美食灵感</h2>
+            <div class="carousel-container">
+                <div class="carousel-slide">
+                    <div class="carousel-item"><img src="https://via.placeholder.com/600x300/FF7F50/FFFFFF?Text=诱人美食1" alt="美食图片1"></div>
+                    <div class="carousel-item"><img src="https://via.placeholder.com/600x300/FFD700/333333?Text=诱人美食2" alt="美食图片2"></div>
+                    <div class="carousel-item"><img src="https://via.placeholder.com/600x300/DC143C/FFFFFF?Text=诱人美食3" alt="美食图片3"></div>
+                    <div class="carousel-item"><img src="https://via.placeholder.com/600x300/FFA07A/333333?Text=诱人美食4" alt="美食图片4"></div>
+                </div>
+            </div>
+            <div class="carousel-dots">
+                <!-- Dots will be generated by JS -->
+            </div>
+        </div>
+
+        <div class="main-decision">
+            <button id="mainDecisionButton" class="decision-button">一键决策！</button>
+            <div id="recommendation-result">让我康康，今天吃...</div>
+        </div>
+
+        <div class="section" id="smart-recommendation">
+            <h2><span aria-hidden="true">✨</span> 智能推荐系统</h2>
+            <p>根据您的口味、忌口、历史选择等，为您量身定制每日餐饮。支持多种标签筛选，如素食、低卡等。</p>
+            <ul class="feature-list">
+                <li>个性化推荐：基于您的偏好进行智能匹配。</li>
+                <li>标签筛选：快速找到素食、低卡路里、高蛋白等特定餐食。</li>
+                <li>历史记录：回顾您过去的就餐选择，方便再次享用。</li>
+            </ul>
+            <div class="fridge-ingredients">
+                <h3><span aria-hidden="true">🧊</span> 冰箱余料模式</h3>
+                <label for="ingredients">输入您现有的食材（用逗号分隔）：</label>
+                <textarea id="ingredients" name="ingredients" placeholder="例如：鸡蛋, 番茄, 青椒"></textarea>
+                <button id="findRecipesButton">查找食谱</button>
+                <div id="recipe-suggestion">（这里将显示根据食材推荐的食谱）</div>
+            </div>
+        </div>
+
+        <div class="section" id="interactive-tools">
+            <h2><span aria-hidden="true">🎲</span> 互动决策工具</h2>
+            <div class="food-roulette">
+                <h3><span aria-hidden="true">🎡</span> 美食轮盘</h3>
+                <p>选择困难？让命运的美食轮盘为您做决定！</p>
+                <div class="roulette-wheel">
+                    <div class="roulette-pointer"></div>
+                    <div id="rouletteDisplay" class="roulette-display"><span>转我!</span></div>
+                </div>
+                <button id="spinRouletteButton" class="roulette-button">开始旋转</button>
+                <div id="roulette-result">（轮盘结果将显示在这里）</div>
+            </div>
+            <hr style="margin: 20px 0; border-color: #ffdab9;">
+            <h3><span aria-hidden="true">🗳️</span> 多人投票模式 (概念)</h3>
+            <p>与家人或朋友共同决定吃什么！创建一个投票，大家一起来选择心仪的餐点。（此功能需要后端支持，此处为概念演示）</p>
+            <ul class="feature-list">
+                <li>发起投票：轻松为想吃的几样东西创建投票链接。</li>
+                <li>分享邀请：将投票链接分享给家人朋友。</li>
+                <li>实时结果：查看投票进度和最终结果。</li>
+            </ul>
+        </div>
+
+        <div class="section" id="diet-plan">
+            <h2><span aria-hidden="true">📅</span> 饮食计划体系</h2>
+            <p>规划您的健康饮食生活，从这里开始。</p>
+            <ul class="feature-list">
+                <li>周/月饮食计划模板：提供多种预设模板，或自定义您的计划。</li>
+                <li>自动购物清单：根据您的饮食计划，一键生成购物清单，省时省力。 (概念)</li>
+                <li>营养分析模块：展示每餐的热量、蛋白质、碳水、脂肪等营养数据，助您均衡膳食。(概念)</li>
+            </ul>
+             <p style="font-style: italic; color: #777;">提示：购物清单和详细营养分析等高级功能，通常需要更复杂的应用架构支持。</p>
+        </div>
+
+    </div>
+
+    <footer style="background-color: #333; color: #fff5e6; padding: 1em 0; margin-top: 30px;">
+        <p>&copy; 2024 今天吃啥呀？团队. 保留所有权利。</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- 一键决策功能 ---
+            const decisionButton = document.getElementById('mainDecisionButton');
+            const recommendationResult = document.getElementById('recommendation-result');
+            const foodOptions = [
+                "麻辣香锅", "饺子", "披萨", "寿司", "拉面", "牛排", "沙拉", "炒饭", 
+                "火锅", "烤肉", "意大利面", "汉堡", "海鲜大餐", "家常菜（小炒黄牛肉）",
+                "轻食简餐", "酸菜鱼", "部队锅", "烧烤"
+            ];
+
+            decisionButton.addEventListener('click', function() {
+                recommendationResult.textContent = '思考中... 🤔';
+                setTimeout(() => {
+                    const randomIndex = Math.floor(Math.random() * foodOptions.length);
+                    recommendationResult.textContent = `要不...今天就吃 ${foodOptions[randomIndex]}！`;
+                }, 1000);
+            });
+
+            // --- 冰箱余料模式 ---
+            const findRecipesButton = document.getElementById('findRecipesButton');
+            const ingredientsInput = document.getElementById('ingredients');
+            const recipeSuggestion = document.getElementById('recipe-suggestion');
+
+            findRecipesButton.addEventListener('click', function() {
+                const ingredients = ingredientsInput.value.trim();
+                if (ingredients === "") {
+                    recipeSuggestion.textContent = "请输入您拥有的食材哦！";
+                    return;
+                }
+                // 这是一个非常简化的模拟
+                recipeSuggestion.textContent = `正在为您查找包含"${ingredients}"的食谱...`;
+                 setTimeout(() => {
+                    // 模拟一些简单的食谱逻辑
+                    if (ingredients.includes("鸡蛋") && ingredients.includes("番茄")) {
+                         recipeSuggestion.innerHTML = "<p>推荐食谱：<strong>番茄炒蛋</strong></p><p>做法：巴拉巴拉...</p>";
+                    } else if (ingredients.includes("鸡肉")) {
+                         recipeSuggestion.innerHTML = "<p>推荐食谱：<strong>宫保鸡丁</strong> 或 <strong>香煎鸡胸肉</strong></p><p>做法：巴拉巴拉...</p>";
+                    } else {
+                         recipeSuggestion.textContent = `抱歉，暂时没有找到"${ingredients}"的完美搭配，试试别的？`;
+                    }
+                }, 1500);
+            });
+
+            // --- 美食轮盘 ---
+            const spinRouletteButton = document.getElementById('spinRouletteButton');
+            const rouletteDisplay = document.getElementById('rouletteDisplay');
+            const rouletteResult = document.getElementById('roulette-result');
+            const rouletteCategories = [
+                "中式", "西式", "日韩", "东南亚", "快餐", "健康轻食", "面点", "辛辣"
+            ];
+            let spinning = false;
+
+            spinRouletteButton.addEventListener('click', function() {
+                if (spinning) return;
+                spinning = true;
+                
+                rouletteResult.textContent = "转动中...";
+                rouletteDisplay.style.transform = 'rotate(0deg)'; // Reset rotation
+                
+                const randomSpins = Math.floor(Math.random() * 5) + 3; // 3 to 7 full spins
+                const stopAngle = Math.floor(Math.random() * 360); // Random stop angle
+                const totalRotation = (randomSpins * 360) + stopAngle;
+
+                rouletteDisplay.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                rouletteDisplay.style.transform = `rotate(${totalRotation}deg)`;
+
+                setTimeout(() => {
+                    spinning = false;
+                    // 确定结果基于停止角度
+                    // 假设有8个区域，每个区域45度 (360/8 = 45)
+                    const actualAngle = totalRotation % 360;
+                    const categoryIndex = Math.floor(actualAngle / (360 / rouletteCategories.length));
+                    const selectedCategory = rouletteCategories[categoryIndex % rouletteCategories.length];
+                    
+                    rouletteResult.textContent = `轮盘指向：${selectedCategory}！`;
+                    // rouletteDisplay.innerHTML = `<span>${selectedCategory}</span>`; // 可以在转盘中心显示结果
+                }, 4100); // 略长于CSS动画时间
+            });
+
+            // --- 简单图片轮播 ---
+            const slidesContainer = document.querySelector(".carousel-slide");
+            const items = document.querySelectorAll(".carousel-item");
+            const dotsContainer = document.querySelector(".carousel-dots");
+            let currentIndex = 0;
+            let slideInterval;
+
+            if (items.length > 0) {
+                // 创建小圆点
+                items.forEach((_, index) => {
+                    const dot = document.createElement("span");
+                    dot.classList.add("dot");
+                    if (index === 0) dot.classList.add("active");
+                    dot.addEventListener("click", () => {
+                        goToSlide(index);
+                        resetInterval();
+                    });
+                    dotsContainer.appendChild(dot);
+                });
+                const dots = document.querySelectorAll(".dot");
+
+                function updateDots() {
+                    dots.forEach(dot => dot.classList.remove("active"));
+                    dots[currentIndex].classList.add("active");
+                }
+
+                function goToSlide(index) {
+                    if (index < 0) index = items.length - 1;
+                    if (index >= items.length) index = 0;
+                    slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+                    currentIndex = index;
+                    updateDots();
+                }
+
+                function nextSlide() {
+                    goToSlide(currentIndex + 1);
+                }
+
+                function resetInterval() {
+                    clearInterval(slideInterval);
+                    slideInterval = setInterval(nextSlide, 4000); // 每4秒切换
+                }
+                
+                // 初始启动轮播
+                resetInterval();
+            }
+
+        });
+    </script>
+
+</body>
+</html> 
