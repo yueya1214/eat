@@ -8,29 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
         "轻食简餐", "酸菜鱼", "部队锅", "烧烤", "麻辣烫", "小龙虾", "煲仔饭"
     ];
 
-    decisionButton.addEventListener('click', function() {
-        recommendationResult.textContent = '思考中... 🤔';
-        // Add wiggle effect
-        if (!decisionButton.classList.contains('wiggle-effect')) {
-            decisionButton.classList.add('wiggle-effect');
-            setTimeout(() => {
-                decisionButton.classList.remove('wiggle-effect'); // Remove after animation
-            }, 300); // Match animation duration (must be same as CSS)
-        }
+        // 全局变量存储当前漂浮的食物元素    let floatingFoodElements = [];        // 添加食物漂浮动画函数    function createFloatingFood() {        // 清除可能已存在的漂浮食物        stopFloatingFood();                // 创建20个漂浮的食物名称        for(let i = 0; i < 20; i++) {            setTimeout(() => {                const food = document.createElement('div');                const randomFood = foodOptions[Math.floor(Math.random() * foodOptions.length)];                food.textContent = randomFood;                food.className = 'floating-food';                food.style.left = Math.random() * 100 + 'vw';                food.style.top = Math.random() * 100 + 'vh';                food.style.animationDuration = (Math.random() * 6 + 3) + 's'; // 3-9秒                food.style.animationDelay = (Math.random() * 2) + 's';                food.style.opacity = Math.random() * 0.7 + 0.3; // 透明度0.3-1                food.style.fontSize = (Math.random() * 24 + 16) + 'px'; // 字体大小16-40px                                // 随机颜色 - 暖色调                const hue = Math.floor(Math.random() * 60) + 0; // 红色到橙黄色                const saturation = Math.floor(Math.random() * 30) + 70; // 70-100%                const lightness = Math.floor(Math.random() * 20) + 40; // 40-60%                food.style.color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;                                document.body.appendChild(food);                // 将元素添加到数组中以便后续移除                floatingFoodElements.push(food);            }, i * 100); // 错开创建时间        }    }        // 停止所有漂浮食物的函数    function stopFloatingFood() {        // 移除所有当前漂浮的食物元素        floatingFoodElements.forEach(element => {            if (document.body.contains(element)) {                document.body.removeChild(element);            }        });        // 清空数组        floatingFoodElements = [];    }
 
-        setTimeout(() => {
-            const randomIndex = Math.floor(Math.random() * foodOptions.length);
-            recommendationResult.textContent = `要不...今天就吃 ${foodOptions[randomIndex]}！`;
-            
-            // 添加淡入效果
-            recommendationResult.style.opacity = '0';
-            recommendationResult.style.transform = 'translateY(10px)';
-            setTimeout(() => {
-                recommendationResult.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                recommendationResult.style.opacity = '1';
-                recommendationResult.style.transform = 'translateY(0)';
-            }, 50);
-        }, 1000);
+        decisionButton.addEventListener('click', function() {        recommendationResult.textContent = '思考中... 🤔';        // Add wiggle effect        if (!decisionButton.classList.contains('wiggle-effect')) {            decisionButton.classList.add('wiggle-effect');            setTimeout(() => {                decisionButton.classList.remove('wiggle-effect'); // Remove after animation            }, 300); // Match animation duration (must be same as CSS)        }                // 触发食物漂浮效果        createFloatingFood();        setTimeout(() => {            const randomIndex = Math.floor(Math.random() * foodOptions.length);            recommendationResult.textContent = `要不...今天就吃 ${foodOptions[randomIndex]}！`;                        // 添加淡入效果            recommendationResult.style.opacity = '0';            recommendationResult.style.transform = 'translateY(10px)';            setTimeout(() => {                recommendationResult.style.transition = 'opacity 0.5s ease, transform 0.5s ease';                recommendationResult.style.opacity = '1';                recommendationResult.style.transform = 'translateY(0)';                                // 结果显示1秒后停止漂浮效果                setTimeout(() => {                    stopFloatingFood();                }, 1000);            }, 50);        }, 1000);
     });
 
     // --- 冰箱余料模式 ---
@@ -160,6 +140,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const stopAngle = Math.floor(Math.random() * 360); // Random stop angle
         const totalRotation = (randomSpins * 360) + stopAngle;
 
+        // 触发食物漂浮效果
+        createFloatingFood();
+        
         rouletteDisplay.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
         rouletteDisplay.style.transform = `rotate(${totalRotation}deg)`;
 
@@ -186,6 +169,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 rouletteResult.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
                 rouletteResult.style.opacity = '1';
                 rouletteResult.style.transform = 'scale(1)';
+                
+                // 结果显示1秒后停止漂浮效果
+                setTimeout(() => {
+                    stopFloatingFood();
+                }, 1000);
             }, 50);
 
             // 根据类别推荐一个随机食物
