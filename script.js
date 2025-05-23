@@ -209,20 +209,24 @@ document.addEventListener('DOMContentLoaded', function() {
         spinning = true;
         
         rouletteResult.textContent = "转动中...";
-        rouletteDisplay.style.transform = 'rotate(0deg)'; // Reset rotation
+        
+        // 添加旋转类
+        const rouletteWheel = document.querySelector('.roulette-wheel');
+        rouletteWheel.classList.add('spinning');
         
         const randomSpins = Math.floor(Math.random() * 5) + 5; // 5 to 9 full spins for more drama
         const stopAngle = Math.floor(Math.random() * 360); // Random stop angle
         const totalRotation = (randomSpins * 360) + stopAngle;
+        
+        // 设置旋转角度
+        setTimeout(() => {
+            rouletteWheel.style.transform = `rotate(${totalRotation}deg)`;
+        }, 10);
 
         // 触发食物漂浮效果
         createFloatingFood();
         
-        rouletteDisplay.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
-        rouletteDisplay.style.transform = `rotate(${totalRotation}deg)`;
-
         // 添加音效模拟（仅视觉反馈）
-        const rouletteWheel = document.querySelector('.roulette-wheel');
         rouletteWheel.classList.add('spinning');
         
         setTimeout(() => {

@@ -264,6 +264,20 @@ header h1::after {
     display: flex;
     align-items: center;
     justify-content: center;
+    transform-origin: center;
+}
+
+.roulette-wheel.spinning {
+    animation: spin 4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(1800deg);
+    }
 }
 
 .roulette-wheel::before {
@@ -376,6 +390,8 @@ header h1::after {
     overflow: hidden;
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-md);
+    max-width: 700px;
+    height: auto;
 }
 
 .carousel-slide {
@@ -388,13 +404,15 @@ header h1::after {
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
+    height: 350px;
 }
 
 .carousel-item img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     transition: transform 0.5s ease;
+    object-fit: cover;
 }
 
 .carousel-item:hover img {
