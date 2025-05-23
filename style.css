@@ -1,108 +1,195 @@
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f7f5f0; /* 更柔和的背景色 */
-    color: #333;
-    text-align: center;
-    background-image: linear-gradient(to bottom, #fcfaf5, #f7f5f0, #fcfaf5);
-    background-attachment: fixed;
+/* 高级现代界面设计 - 全新样式 */
+/* 基础设置与字体 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+:root {
+    --primary-color: #ff6b6b;
+    --secondary-color: #ff8e71;
+    --accent-color: #ffd166;
+    --text-primary: #2d3436;
+    --text-secondary: #636e72;
+    --bg-primary: #fff;
+    --bg-secondary: #f9f9f9;
+    --bg-gradient: linear-gradient(135deg, #fff6f6, #fff9f0);
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+    --border-radius-sm: 8px;
+    --border-radius-md: 16px;
+    --border-radius-lg: 24px;
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--primary-color), var(--secondary-color));
+    border-radius: 10px;
+}
+
+/* 页眉设计 */
 header {
-    background: linear-gradient(135deg, #ff6f61, #ff9671);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
-    padding: 1.5em 0;
-    box-shadow: 0 3px 20px rgba(0,0,0,0.15);
+    padding: 2rem 0;
+    box-shadow: var(--shadow-lg);
     position: relative;
-    z-index: 10;
+    z-index: 100;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://picsum.photos/id/42/1000/300');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: -1;
 }
 
 header h1 {
     margin: 0;
-    font-size: 2.8em;
+    font-size: 3rem;
+    font-weight: 700;
     letter-spacing: 1px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
+header h1::after {
+    content: "🍽️";
+    font-size: 0.8em;
+    position: absolute;
+    margin-left: 10px;
+    animation: float 3s ease-in-out infinite;
+}
+
+/* 主容器设计 */
 .container {
-    padding: 25px;
-    max-width: 1200px;
-    margin: 30px auto;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.08);
-    position: relative;
-    overflow: hidden;
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
 /* 两栏布局 */
 .main-layout {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 320px 1fr;
     gap: 30px;
+    position: relative;
 }
 
+/* 侧边栏设计 */
 .sidebar {
-    flex: 1;
-    min-width: 280px;
-    max-width: 350px;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    align-self: start;
 }
 
-.main-content {
-    flex: 3;
-    min-width: 300px;
-}
-
-/* 决策按钮区域 - 改为上下布局 */
-.main-decision {
-    margin-bottom: 30px;
-    padding: 25px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(255, 140, 0, 0.1);
-    position: relative;
+/* 卡片通用样式 */
+.card {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
     overflow: hidden;
-    border: 1px solid rgba(255, 140, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.main-decision h2 {
-    color: #ff6f61;
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.8em;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    margin-bottom: 30px;
     position: relative;
-    display: inline-block;
 }
 
-.main-decision h2::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(to right, #ff6f61, transparent);
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+    padding: 1.5rem;
+    background: linear-gradient(to right, rgba(255, 107, 107, 0.1), transparent);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card-header h2, .card-header h3 {
+    margin: 0;
+    color: var(--primary-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-header h2::before, .card-header h3::before {
+    font-size: 1.2em;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* 主决策按钮区域 */
+.main-decision {
+    composes: card;
+}
+
+.main-decision .card-header h2::before {
+    content: "🎯";
 }
 
 .decision-button {
-    background: linear-gradient(135deg, #ff8c00, #ff7043);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     border: none;
-    padding: 18px 40px;
-    font-size: 1.6em;
-    border-radius: 50px;
+    padding: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-radius: var(--border-radius-md);
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+    transition: all var(--transition-normal);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    width: 100%;
     position: relative;
     overflow: hidden;
-    margin-bottom: 25px;
-    width: 90%;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.decision-button:hover {
+    box-shadow: 0 7px 20px rgba(255, 107, 107, 0.4);
+    transform: translateY(-2px);
+}
+
+.decision-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
 }
 
 .decision-button::after {
@@ -113,167 +200,105 @@ header h1 {
     width: 200%;
     height: 200%;
     background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
-    transform: rotate(45deg);
-    transition: all 0.3s ease;
-}
-
-.decision-button:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 7px 20px rgba(255, 140, 0, 0.4);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 .decision-button:hover::after {
-    transform: rotate(45deg) translate(10%, 10%);
-}
-
-.decision-button:active {
-    transform: translateY(1px) scale(0.98);
-    box-shadow: 0 2px 8px rgba(255, 140, 0, 0.3);
+    opacity: 1;
+    transform: scale(1);
 }
 
 #recommendation-result {
-    font-size: 1.4em;
-    color: #d35400;
-    min-height: 60px;
-    padding: 20px;
-    background-color: rgba(255, 248, 235, 0.9);
-    border-radius: 15px;
-    display: block;
-    border: 1px solid rgba(255, 218, 185, 0.7);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-    line-height: 1.4;
-    width: 85%;
-    transition: all 0.4s ease;
-    position: relative;
-}
-
-#recommendation-result::before {
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 0 10px 10px 10px;
-    border-style: solid;
-    border-color: transparent transparent rgba(255, 248, 235, 0.9) transparent;
-}
-
-/* 美食轮盘 - 调整为侧边栏样式 */
-.food-roulette {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: var(--border-radius-md);
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    min-height: 80px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(217, 83, 79, 0.1);
-    padding: 25px;
-    margin-bottom: 30px;
-    border: 1px solid rgba(217, 83, 79, 0.1);
-}
-
-.food-roulette h2 {
-    color: #d9534f;
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.6em;
+    justify-content: center;
+    text-align: center;
     position: relative;
-    display: inline-block;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--accent-color);
 }
 
-.food-roulette h2::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(to right, #d9534f, transparent);
+/* 美食轮盘 */
+.food-roulette {
+    composes: card;
 }
 
-.food-roulette p {
-    color: #666;
-    margin-bottom: 20px;
-    max-width: 90%;
+.food-roulette .card-header h2::before {
+    content: "🎡";
 }
 
 .roulette-wheel-container {
     position: relative;
-    padding: 10px;
-    background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,245,230,0.5) 100%);
-    border-radius: 50%;
-    box-shadow: 0 5px 25px rgba(217, 83, 79, 0.2);
-    margin-bottom: 25px;
-    transition: transform 0.3s ease;
+    padding: 20px;
+    margin: 1.5rem auto;
+    width: fit-content;
 }
 
 .roulette-wheel {
-    width: 220px;
-    height: 220px;
-    border: 5px solid #d9534f;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     position: relative;
-    margin: 0;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1), inset 0 0 60px rgba(255, 255, 255, 0.5);
     overflow: hidden;
-    background-color: #fff;
-    box-shadow: 
-        0 0 20px rgba(217, 83, 79, 0.3),
-        inset 0 0 30px rgba(255, 255, 255, 0.5);
-    transition: box-shadow 0.3s ease;
-}
-
-.roulette-wheel:hover {    
-    box-shadow: 
-        0 0 30px rgba(217, 83, 79, 0.4),
-        inset 0 0 40px rgba(255, 255, 255, 0.6);
-}
-
-.roulette-wheel.spinning {    
-    animation: pulse 0.5s infinite alternate;
-}
-
-@keyframes pulse {
-    0% {
-        box-shadow:
-            0 0 20px rgba(217, 83, 79, 0.3),
-            inset 0 0 30px rgba(255, 255, 255, 0.5);
-    }
-    100% {
-        box-shadow:
-            0 0 35px rgba(217, 83, 79, 0.5),
-            inset 0 0 50px rgba(255, 255, 255, 0.7);
-    }
-}
-
-.roulette-display {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-image: conic-gradient(
-        #ffb347 0% 12.5%, 
-        #ffcc33 12.5% 25%, 
-        #90ee90 25% 37.5%, 
-        #add8e6 37.5% 50%, 
-        #dda0dd 50% 62.5%, 
-        #ff69b4 62.5% 75%, 
-        #f08080 75% 87.5%, 
-        #a0ced9 87.5% 100% 
+    background: conic-gradient(
+        #ff6b6b 0% 12.5%, 
+        #ff8e71 12.5% 25%, 
+        #ffd166 25% 37.5%, 
+        #06d6a0 37.5% 50%, 
+        #118ab2 50% 62.5%, 
+        #073b4c 62.5% 75%, 
+        #ef476f 75% 87.5%, 
+        #ffd166 87.5% 100%
     );
     transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: rgba(0,0,0,0.6);
+}
+
+.roulette-wheel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+    z-index: 1;
+}
+
+.roulette-wheel::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 30%;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    z-index: 2;
 }
 
 .roulette-display span {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 8px 12px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 15px;
     border-radius: 50%;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-    z-index: 2;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+    position: relative;
+    font-weight: 600;
 }
 
 .roulette-pointer {
@@ -281,7 +306,7 @@ header h1 {
     height: 0;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
-    border-top: 28px solid #d9534f;
+    border-top: 30px solid var(--primary-color);
     position: absolute;
     top: -15px;
     left: 50%;
@@ -291,84 +316,66 @@ header h1 {
 }
 
 .roulette-button {
-    background: linear-gradient(135deg, #d9534f, #c9302c);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
-    padding: 12px 25px;
+    padding: 1rem 2rem;
     border: none;
-    border-radius: 30px;
+    border-radius: var(--border-radius-md);
     cursor: pointer;
-    font-size: 1.1em;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(217, 83, 79, 0.3);
-    margin-top: 5px;
-    width: 80%;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all var(--transition-normal);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    width: 100%;
+    letter-spacing: 1px;
 }
 
 .roulette-button:hover {
-    background: linear-gradient(135deg, #c9302c, #d9534f);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(217, 83, 79, 0.4);
+    box-shadow: 0 7px 20px rgba(255, 107, 107, 0.4);
+    transform: translateY(-2px);
 }
 
 .roulette-button:active {
     transform: translateY(1px);
-    box-shadow: 0 2px 8px rgba(217, 83, 79, 0.3);
+    box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
 }
 
 #roulette-result {
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: #d9534f;
-    font-weight: bold;
-    padding: 12px 20px;
-    background-color: rgba(255, 245, 245, 0.8);
-    border-radius: 15px;
-    min-width: 200px;
-    transition: all 0.4s ease;
-    box-shadow: 0 3px 10px rgba(217, 83, 79, 0.1);
-    border: 1px solid rgba(217, 83, 79, 0.1);
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    padding: 1rem;
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius-md);
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-sm);
     text-align: center;
-    width: 85%;
+    border-left: 4px solid var(--accent-color);
+}
+
+/* 主内容区域 */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 /* 美食轮播 */
 .food-carousel {
-    margin-bottom: 30px;
-    padding: 25px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(255, 218, 185, 0.3);
+    composes: card;
 }
 
-.food-carousel h2 {
-    color: #ff6f61;
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.8em;
-    position: relative;
-    display: inline-block;
-}
-
-.food-carousel h2::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(to right, #ff6f61, transparent);
+.food-carousel .card-header h2::before {
+    content: "🍳";
 }
 
 .carousel-container {
     position: relative;
-    max-width: 90%;
-    margin: auto;
+    margin: 0 auto;
     overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
 }
 
 .carousel-slide {
@@ -380,23 +387,39 @@ header h1 {
     min-width: 100%;
     box-sizing: border-box;
     position: relative;
+    overflow: hidden;
 }
 
 .carousel-item img {
     width: 100%;
     height: auto;
     display: block;
-    transition: transform 0.3s ease;
-    border-radius: 12px;
+    transition: transform 0.5s ease;
 }
 
 .carousel-item:hover img {
-    transform: scale(1.02);
+    transform: scale(1.05);
+}
+
+.carousel-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.carousel-item:hover::after {
+    opacity: 1;
 }
 
 .carousel-dots {
     text-align: center;
-    padding: 15px 0 5px;
+    padding: 1rem 0 0.5rem;
 }
 
 .dot {
@@ -404,333 +427,260 @@ header h1 {
     height: 12px;
     width: 12px;
     margin: 0 6px;
-    background-color: rgba(255, 218, 185, 0.7);
+    background-color: #ddd;
     border-radius: 50%;
     display: inline-block;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 140, 0, 0.2);
+    transition: all var(--transition-normal);
 }
 
 .dot:hover {
-    background-color: rgba(255, 140, 0, 0.5);
+    background-color: var(--secondary-color);
     transform: scale(1.2);
 }
 
 .dot.active {
-    background-color: #ff8c00;
+    background-color: var(--primary-color);
     transform: scale(1.1);
-    box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+    box-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
 }
 
 /* 内容区块通用样式 */
 .section {
-    background-color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 30px;
-    padding: 25px 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    text-align: left;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(255, 218, 185, 0.3);
+    composes: card;
 }
 
-.section:hover {
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    transform: translateY(-3px);
-}
-
-.section h2 {
-    color: #ff6f61;
-    padding-bottom: 10px;
-    margin-top: 0;
-    font-size: 1.8em;
-    position: relative;
-    display: inline-block;
-}
-
-.section h2::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(to right, #ff6f61, transparent);
-}
-
-.feature-list {
-    padding-left: 25px;
-}
-
-.feature-list li {
-    margin-bottom: 12px;
-    line-height: 1.6;
-    position: relative;
-}
-
-.feature-list li::before {
-    content: "•";
-    color: #ff8c00;
-    font-weight: bold;
-    position: absolute;
-    left: -18px;
-}
-
-/* 冰箱余料模式 */
-.fridge-ingredients {
-    margin-top: 30px;
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(92, 184, 92, 0.1);
-    border: 1px solid rgba(92, 184, 92, 0.2);
-    position: relative;
-}
-
-.fridge-ingredients h3 {
-    color: #5a8f5a;
-    margin-top: 0;
-    position: relative;
-    display: inline-block;
-}
-
-.fridge-ingredients h3::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -3px;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(to right, #5cb85c, transparent);
-}
-
-.fridge-ingredients label {
-    display: block;
-    margin: 12px 0 8px;
-    font-weight: bold;
-    color: #555;
-}
-
-.fridge-ingredients textarea {
-    width: calc(100% - 24px);
-    padding: 15px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    min-height: 70px;
-    margin-bottom: 15px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
-    transition: border 0.3s ease, box-shadow 0.3s ease;
-    font-family: inherit;
-}
-
-.fridge-ingredients textarea:focus {
-    border-color: #5cb85c;
-    box-shadow: 0 0 10px rgba(92, 184, 92, 0.3);
-    outline: none;
-}
-
-.fridge-ingredients button {
-    background: linear-gradient(135deg, #5cb85c, #449d44);
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1em;
-    box-shadow: 0 4px 10px rgba(92, 184, 92, 0.3);
-}
-
-.fridge-ingredients button:hover {
-    background: linear-gradient(135deg, #449d44, #5cb85c);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(92, 184, 92, 0.4);
-}
-
-.fridge-ingredients button:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 5px rgba(92, 184, 92, 0.3);
-}
-
-#recipe-suggestion {
-    margin-top: 20px;
-    padding: 20px 25px;
-    background-color: rgba(233, 245, 233, 0.8);
-    border-radius: 12px;
-    line-height: 1.6;
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 15px rgba(92, 184, 92, 0.1);
-}
-
-#recipe-suggestion:hover {
-    box-shadow: 0 5px 20px rgba(92, 184, 92, 0.15);
-    transform: translateY(-3px);
-}
-
-#recipe-suggestion p strong {
-    color: #3c763d;
+/* 智能推荐系统 */
+#smart-recommendation .card-header h2::before {
+    content: "✨";
 }
 
 /* 标签筛选 */
 .filter-tags {
-    margin: 25px 0;
-    padding: 5px 0 20px;
-    border-bottom: 1px solid rgba(255, 228, 181, 0.5);
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 1.5rem;
 }
 
 .filter-tags strong {
-    display: inline-block;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    color: #8b4513;
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-weight: 500;
 }
 
 .filter-tag {
-    background-color: rgba(255, 235, 205, 0.7);
-    color: #8b4513;
-    border: 1px solid rgba(255, 218, 185, 0.5);
-    padding: 8px 18px;
-    font-size: 0.95em;
+    background: var(--bg-secondary);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 30px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
     cursor: pointer;
-    margin: 5px;
-    transition: all 0.3s ease;
-    display: inline-block;
+    transition: all var(--transition-normal);
+    color: var(--text-secondary);
+    font-weight: 500;
 }
 
 .filter-tag:hover {
-    background-color: rgba(255, 218, 185, 0.9);
-    color: #a52a2a;
-    transform: translateY(-3px);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    background: rgba(255, 107, 107, 0.1);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 .filter-tag.active {
-    background: linear-gradient(135deg, #ff8c00, #ff7043);
+    background: var(--primary-color);
     color: white;
-    font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transform: translateY(-1px);
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
 }
 
-/* 推荐结果容器 */
 #filtered-recommendations-container {
-    margin-top: 25px;
-    padding: 25px;
-    background-color: rgba(255, 249, 240, 0.7);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 204, 128, 0.3);
-    min-height: 50px;
-    text-align: left;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-    transition: all 0.3s ease;
-}
-
-#filtered-recommendations-container:hover {
-    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-    background-color: rgba(255, 249, 240, 0.85);
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all var(--transition-normal);
 }
 
 #filtered-recommendations-container h4 {
     margin-top: 0;
-    color: #e67e22;
-    margin-bottom: 18px;
-    font-size: 1.3em;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
     position: relative;
     display: inline-block;
 }
 
-#filtered-recommendations-container h4::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(to right, #e67e22, transparent);
-}
-
 #filtered-recommendations-container ul {
-    list-style-type: none;
-    padding-left: 0;
+    list-style: none;
+    padding: 0;
 }
 
 #filtered-recommendations-container li {
-    padding: 15px 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 235, 204, 0.5);
-    border-radius: 12px;
-    margin-bottom: 15px;
-    transition: all 0.3s ease;
-    font-size: 1em;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.03);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: white;
+    border-radius: var(--border-radius-sm);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
     position: relative;
-    overflow: hidden;
+    padding-left: 2rem;
+    border-left: 3px solid var(--accent-color);
 }
 
 #filtered-recommendations-container li::before {
-    content: "";
+    content: "🍽️";
     position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 5px;
-    background: linear-gradient(to bottom, #ffcc80, #ff8c00);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    left: 0.7rem;
+    top: 1rem;
+    color: var(--primary-color);
 }
 
 #filtered-recommendations-container li:hover {
-    background-color: rgba(255, 245, 225, 0.9);
-    transform: translateX(8px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+    box-shadow: var(--shadow-md);
+    transform: translateX(5px);
 }
 
-#filtered-recommendations-container li:hover::before {
-    opacity: 1;
+#filtered-recommendations-container li strong {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+#filtered-recommendations-container li small {
+    color: var(--text-secondary);
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.2rem 0.5rem;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+}
+
+#filtered-recommendations-container li span {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
 }
 
 #filtered-recommendations-container .no-results {
-    color: #777;
-    font-style: italic;
-    padding: 15px 0;
     text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+    font-style: italic;
 }
 
-/* 饮食计划周样式 */
-.weekly-plan-placeholder {
+/* 冰箱余料模式 */
+.fridge-ingredients {
+    margin-top: 1.5rem;
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid #06d6a0;
+}
+
+.fridge-ingredients h3 {
+    color: #06d6a0;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 600;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 25px;
-    padding: 25px;
-    background-color: rgba(255, 250, 240, 0.7);
-    border: 1px dashed rgba(255, 218, 185, 0.5);
-    border-radius: 15px;
-    position: relative;
-    transition: all 0.3s ease;
+    align-items: center;
+    gap: 8px;
 }
 
-.weekly-plan-placeholder:hover {
-    background-color: rgba(255, 250, 240, 0.9);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+.fridge-ingredients h3::before {
+    content: "🧊";
+}
+
+.fridge-ingredients label {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.fridge-ingredients textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius-sm);
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 80px;
+    transition: all var(--transition-normal);
+    background: white;
+}
+
+.fridge-ingredients textarea:focus {
+    outline: none;
+    border-color: #06d6a0;
+    box-shadow: 0 0 0 3px rgba(6, 214, 160, 0.2);
+}
+
+.fridge-ingredients button {
+    background: linear-gradient(135deg, #06d6a0, #1b9aaa);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all var(--transition-normal);
+    box-shadow: 0 4px 15px rgba(6, 214, 160, 0.3);
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.fridge-ingredients button:hover {
+    box-shadow: 0 7px 20px rgba(6, 214, 160, 0.4);
+    transform: translateY(-2px);
+}
+
+.fridge-ingredients button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(6, 214, 160, 0.3);
+}
+
+#recipe-suggestion {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+    border-left: 4px solid #06d6a0;
+}
+
+#recipe-suggestion:hover {
+    box-shadow: var(--shadow-md);
+}
+
+#recipe-suggestion p strong {
+    color: #06d6a0;
+    font-weight: 600;
+}
+
+/* 饮食计划体系 */
+#diet-plan .card-header h2::before {
+    content: "📅";
+}
+
+.weekly-plan-placeholder {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 1.5rem;
 }
 
 .plan-day {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 228, 181, 0.5);
-    border-radius: 12px;
-    padding: 20px;
-    margin: 10px;
-    width: calc(100% / 4 - 30px);
-    min-width: 130px;
-    box-sizing: border-box;
-    text-align: center;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.03);
-    transition: all 0.3s ease;
+    background: white;
+    border-radius: var(--border-radius-sm);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
     position: relative;
     overflow: hidden;
 }
@@ -740,69 +690,39 @@ header h1 {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(to right, #ff6f61, transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
 }
 
 .plan-day:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    background-color: rgba(255, 255, 255, 0.95);
-}
-
-.plan-day:hover::before {
-    opacity: 1;
+    box-shadow: var(--shadow-md);
 }
 
 .plan-day h4 {
     margin-top: 0;
-    margin-bottom: 12px;
-    color: #ff6f61;
-    font-size: 1.2em;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
     position: relative;
     display: inline-block;
 }
 
-.plan-day h4::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -3px;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(to right, #ff6f61, transparent);
-}
-
 .plan-day p {
-    font-size: 0.95em;
-    color: #555;
-    margin-bottom: 5px;
-    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.8;
 }
 
-/* Button wiggle animation */
-@keyframes wiggle {
-    0%, 100% { transform: rotate(0deg) scale(1.05); }
-    25% { transform: rotate(-3deg) scale(1.05); }
-    75% { transform: rotate(3deg) scale(1.05); }
-}
-
-.decision-button.wiggle-effect {
-    animation: wiggle 0.3s ease-in-out;
-}
-
-/* Footer Styles */
+/* 页脚设计 */
 footer {
-    background: linear-gradient(to right, #333, #4a4a4a, #333);
-    color: #fff0db;
-    padding: 1.8em 0;
-    margin-top: 60px;
-    font-size: 0.9em;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 2rem 0;
+    margin-top: 3rem;
     position: relative;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
 }
 
 footer::before {
@@ -810,156 +730,132 @@ footer::before {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(to right, transparent, #ff6f61, transparent);
+    width: 100%;
+    height: 100%;
+    background-image: url('https://picsum.photos/id/42/1000/300');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: 0;
 }
 
 footer p {
+    position: relative;
+    z-index: 1;
     margin: 0;
-    letter-spacing: 0.5px;
-}
-
-/* 响应式设计 */
-@media (max-width: 1100px) {
-    .main-layout {
-        flex-direction: column;
-    }
-    
-    .sidebar {
-        max-width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-    }
-    
-    .main-decision, .food-roulette {
-        flex: 1;
-        min-width: 280px;
-    }
-    
-    .roulette-wheel-container {
-        margin: 0 auto 20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .container {
-        margin: 20px auto;
-        padding: 15px;
-    }
-    
-    .sidebar {
-        flex-direction: column;
-    }
-    
-    .main-decision, .food-roulette {
-        width: 100%;
-    }
-    
-    .section {
-        padding: 20px;
-    }
-    
-    .plan-day {
-        width: calc(100% / 2 - 20px);
-    }
-    
-    .section h2, .food-carousel h2, .main-decision h2, .food-roulette h2 {
-        font-size: 1.6em;
-    }
-    
-    .decision-button {
-        font-size: 1.5em;
-        padding: 15px 35px;
-    }
-    
-    #recommendation-result {
-        font-size: 1.4em;
-    }
-    
-    .roulette-wheel {
-        width: 200px;
-        height: 200px;
-    }
-}
-
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 2em;
-    }
-    
-    .container {
-        margin: 10px auto;
-        padding: 12px;
-    }
-    
-    .section, .main-decision, .food-roulette, .food-carousel {
-        padding: 15px;
-    }
-    
-    .plan-day {
-        width: 100%;
-    }
-    
-    .section h2, .food-carousel h2, .main-decision h2, .food-roulette h2 {
-        font-size: 1.4em;
-    }
-    
-    .decision-button {
-        font-size: 1.3em;
-        padding: 12px 30px;
-    }
-    
-    #recommendation-result {
-        font-size: 1.2em;
-        padding: 10px 20px;
-    }
-    
-    .filter-tag {
-        padding: 6px 12px;
-        font-size: 0.8em;
-    }
-    
-    #filtered-recommendations-container li {
-        padding: 12px 15px;
-    }
-    
-    .roulette-wheel {
-        width: 180px;
-        height: 180px;
-    }
+    font-weight: 300;
+    letter-spacing: 1px;
 }
 
 /* 漂浮食物动画 */
 .floating-food {
     position: fixed;
-    z-index: 100;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    opacity: 0.7;
     pointer-events: none;
-    animation: float 10s ease-in-out forwards;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-    font-weight: bold;
-    white-space: nowrap;
+    z-index: 100;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
     0% {
-        transform: translate(0, 0) rotate(0deg) scale(0);
-        opacity: 0;
-    }
-    10% {
-        transform: translate(10px, -30px) rotate(5deg) scale(1);
-        opacity: 1;
+        transform: translateY(0px) rotate(0deg);
     }
     50% {
-        transform: translate(40px, -100px) rotate(-5deg) scale(1.2);
-    }
-    90% {
-        transform: translate(60px, -200px) rotate(10deg) scale(1);
-        opacity: 0.7;
+        transform: translateY(-20px) rotate(5deg);
     }
     100% {
-        transform: translate(80px, -300px) rotate(0deg) scale(0.5);
-        opacity: 0;
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+.decision-button.wiggle-effect {
+    animation: wiggle 0.3s ease;
+}
+
+/* 响应式设计 */
+@media (max-width: 1100px) {
+    .main-layout {
+        grid-template-columns: 280px 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    
+    .main-decision, .food-roulette {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+        margin: 20px auto;
+    }
+    
+    .sidebar {
+        grid-template-columns: 1fr;
+    }
+    
+    header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .weekly-plan-placeholder {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .container {
+        padding: 0 10px;
+        margin: 15px auto;
+    }
+    
+    .card-header h2, .card-header h3 {
+        font-size: 1.3rem;
+    }
+    
+    .decision-button {
+        font-size: 1.2rem;
+        padding: 1rem;
+    }
+    
+    #recommendation-result {
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
+    
+    .filter-tag {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .roulette-wheel {
+        width: 200px;
+        height: 200px;
     }
 } 
